@@ -10,7 +10,7 @@ __global__ void SpatialDropoutForward(const int n, const int h, const int w, con
     const unsigned int* mask, const unsigned int threshold, const float scale,
     Dtype* out) {
   CUDA_KERNEL_LOOP(index, n) {
-    int current_channel = index % (h * w);
+    int current_channel = index / (h * w);
     out[index] = in[index] * (mask[current_channel] > threshold) * scale;
   }
 }
@@ -44,7 +44,7 @@ __global__ void SpatialDropoutBackward(const int n, const int h, const int w, co
     const unsigned int* mask, const unsigned int threshold, const float scale,
     Dtype* out_diff) {
   CUDA_KERNEL_LOOP(index, n) {
-    int current_channel = index % (h * w);
+    int current_channel = index / (h * w);
     out_diff[index] = in_diff[index] * (mask[current_channel] > threshold) * scale;
   }
 }
