@@ -306,7 +306,7 @@ message ParamSpec {
 // NOTE
 // Update the next available ID when you add a new LayerParameter field.
 //
-// LayerParameter next available layer-specific ID: 148 (last added: dense_image_data_param)
+// LayerParameter next available layer-specific ID: 150 (last added: spatial_dropout_param)
 message LayerParameter {
   optional string name = 1; // the layer name
   optional string type = 2; // the layer type
@@ -407,6 +407,7 @@ message LayerParameter {
   optional BNParameter bn_param = 45;
   optional DenseImageDataParameter dense_image_data_param = 46;
   optional DenseMMImageDataParameter dense_mm_image_data_param = 148;
+  optional SpatialDropoutParameter spatial_dropout_param = 149;
 }
 
 // Message that stores parameters used to apply transformation
@@ -1201,6 +1202,11 @@ message SoftmaxParameter {
   // from the end (e.g., -1 for the last axis).
   // Any other axes will be evaluated as independent softmaxes.
   optional int32 axis = 2 [default = 1];
+}
+
+message SpatialDropoutParameter {
+  optional float dropout_ratio = 1 [default = 0.5]; // dropout ratio
+  optional bool sample_weights_test = 2 [default = false]; // Sample weights for testing or use the mean
 }
 
 message TanHParameter {
